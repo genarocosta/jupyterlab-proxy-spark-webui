@@ -98,14 +98,18 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
         const iframe = new IFrame({
           sandbox: [
-            // 'allow-same-origin' is intentionally omitted.
-            // Combining allow-same-origin with allow-scripts lets the iframe
-            // remove its own sandbox attribute and gain full access to the
-            // parent JupyterLab context (cookies, tokens, kernels).
+            // allow-same-origin is required: without it the iframe receives a
+            // null opaque origin and Jupyter blocks its API requests with
+            // "Blocking Cross Origin API request. Origin: null".
+            // Residual risk: allow-same-origin + allow-scripts theoretically
+            // lets the iframe remove its own sandbox. This is accepted because
+            // the content is Spark UI served from localhost via a trusted proxy
+            // — not third-party content.
+            'allow-same-origin',
             'allow-scripts',
             'allow-forms'
-            // 'allow-popups' is omitted: Spark UI does not need to open
-            // new windows, and allowing it enables tab-napping attacks.
+            // allow-popups is omitted: Spark UI does not need to open new
+            // windows, and allowing it would enable tab-napping attacks.
           ]
         });
         iframe.url = `${base}/proxy/4040/jobs/`;
