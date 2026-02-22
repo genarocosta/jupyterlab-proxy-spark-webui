@@ -13,6 +13,15 @@ node_modules/
 package-lock.json
 yarn.lock
 
+# Yarn PnP
+.pnp.cjs
+.pnp.loader.mjs
+.yarn/
+
+# Claude Code
+.claude/
+resume.sh
+
 # Misc
 *.js.map
 tsconfig.tsbuildinfo
