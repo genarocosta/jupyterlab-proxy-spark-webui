@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Build outputs
+lib/
+jupyterlab_spark_webui/labextension/
+
+# Node
+node_modules/
+package-lock.json
+yarn.lock
+
+# Misc
+*.js.map
+tsconfig.tsbuildinfo
