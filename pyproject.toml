@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling>=1.5.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jupyterlab-spark-webui"
+version = "0.1.0"
+description = "JupyterLab extension to open the Spark Web UI via the notebook proxy"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+dependencies = [
+    "jupyter-server-proxy>=4.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "jupyterlab==4.1.6",
+]
+
+[tool.hatch.build.targets.wheel]
+# Bundle the pre-built labextension (built separately via `npm run build:prod`)
+artifacts = ["jupyterlab_spark_webui/labextension"]
+packages = ["jupyterlab_spark_webui"]
