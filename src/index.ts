@@ -77,7 +77,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     const menu = new Menu({ commands });
     menu.title.label = 'Spark UI';
     menu.addItem({ command: COMMAND_ID });
-    mainMenu.addMenu(menu, false, { rank: 10000 });
+    mainMenu.addMenu(menu, false, { rank: 998 });
   }
 };
 
