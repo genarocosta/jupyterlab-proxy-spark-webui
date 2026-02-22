@@ -3,7 +3,12 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
-import { showDialog, Dialog } from '@jupyterlab/apputils';
+import {
+  Dialog,
+  IFrame,
+  MainAreaWidget,
+  showDialog
+} from '@jupyterlab/apputils';
 
 import { IMainMenu } from '@jupyterlab/mainmenu';
 
@@ -27,8 +32,8 @@ function basePath(): string | null {
 
 /**
  * Probe port 4040 through the notebook proxy.
- * jupyter-server-proxy returns 502/503 when the target is unreachable,
- * so any status < 500 means Spark is up.
+ * Any non-2xx response (including 404) and network errors are treated as
+ * unavailable.
  */
 async function isSparkRunning(): Promise<boolean> {
   const base = basePath();
@@ -51,22 +56,57 @@ const plugin: JupyterFrontEndPlugin<void> = {
   autoStart: true,
   optional: [IMainMenu],
   activate: (app: JupyterFrontEnd, mainMenu: IMainMenu | null) => {
-    const { commands } = app;
+    const { commands, shell } = app;
+
+    // Keep a reference so we can reactivate an existing tab instead of
+    // opening a duplicate.
+    let sparkWidget: MainAreaWidget<IFrame> | null = null;
 
     commands.addCommand(COMMAND_ID, {
       label: 'Open Spark UI',
       execute: async () => {
         const running = await isSparkRunning();
-        if (running) {
-          const base = basePath();
-          window.open(`${base}/proxy/4040/jobs/`, '_blank');
-        } else {
+
+        if (!running) {
           void showDialog({
             title: 'Spark UI',
             body: 'No Spark found (port 4040).',
             buttons: [Dialog.okButton()]
           });
+          return;
         }
+
+        // Reactivate the existing tab if still open.
+        if (sparkWidget && !sparkWidget.isDisposed) {
+          shell.activateById(sparkWidget.id);
+          return;
+        }
+
+        const base = basePath()!;
+        const url = `${base}/proxy/4040/jobs/`;
+
+        const iframe = new IFrame({
+          sandbox: [
+            'allow-same-origin',
+            'allow-scripts',
+            'allow-forms',
+            'allow-popups'
+          ]
+        });
+        iframe.url = url;
+        iframe.title.label = 'Spark UI';
+
+        sparkWidget = new MainAreaWidget({ content: iframe });
+        sparkWidget.title.label = 'Spark UI';
+        sparkWidget.title.closable = true;
+
+        // Clear the reference when the tab is closed.
+        sparkWidget.disposed.connect(() => {
+          sparkWidget = null;
+        });
+
+        shell.add(sparkWidget, 'main');
+        shell.activateById(sparkWidget.id);
       }
     });
 
