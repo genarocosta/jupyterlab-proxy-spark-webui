@@ -18,6 +18,11 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-# Bundle the pre-built labextension (built separately via `npm run build:prod`)
+# Bundle the pre-built labextension (built separately via ./build.sh)
 artifacts = ["jupyterlab_spark_webui/labextension"]
 packages = ["jupyterlab_spark_webui"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+# Install labextension files to <prefix>/share/jupyter/labextensions/ so that
+# JupyterLab discovers the extension automatically on `pip install`.
+"jupyterlab_spark_webui/labextension" = "share/jupyter/labextensions/jupyterlab-spark-webui"
