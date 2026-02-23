@@ -22,6 +22,10 @@ yarn.lock
 .claude/
 resume.sh
 
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
 # Misc
 *.js.map
 tsconfig.tsbuildinfo
