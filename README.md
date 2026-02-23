@@ -1,5 +1,9 @@
 # jupyterlab-spark-webui
 
+[![PyPI version](https://img.shields.io/pypi/v/jupyterlab-spark-webui)](https://pypi.org/project/jupyterlab-spark-webui/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://genarocosta.github.io/jupyterlab-proxy-spark-webui/)
+
 A JupyterLab extension that adds a **Spark UI** menu entry to the menu bar.
 When clicked, it checks whether Apache Spark is running on port 4040 and opens
 the Spark jobs page as an embedded JupyterLab tab via
@@ -59,7 +63,7 @@ pip uninstall jupyterlab-spark-webui
 ### Setup and build
 
 ```bash
-git clone https://github.com/your-org/jupyterlab-spark-webui
+git clone https://github.com/genarocosta/jupyterlab-proxy-spark-webui
 cd jupyterlab-spark-webui
 
 ./build.sh          # build everything + produce dist/*.whl

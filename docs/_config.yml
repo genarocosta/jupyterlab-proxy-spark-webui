@@ -1,0 +1,7 @@
+title: jupyterlab-spark-webui
+description: JupyterLab extension to open the Apache Spark Web UI via the notebook proxy
+theme: minima
+author: Genaro Costa
+
+github_username: genarocosta
+repository: genarocosta/jupyterlab-proxy-spark-webui

@@ -10,7 +10,7 @@ readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.8"
 authors = [
-    { name = "Your Name", email = "you@example.com" },
+    { name = "Genaro Costa", email = "genaro@carvalhocosta.net" },
 ]
 keywords = ["jupyter", "jupyterlab", "jupyterlab-extension", "spark"]
 classifiers = [
@@ -27,9 +27,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-org/jupyterlab-spark-webui"
-Repository = "https://github.com/your-org/jupyterlab-spark-webui"
-Issues = "https://github.com/your-org/jupyterlab-spark-webui/issues"
+Homepage = "https://genarocosta.github.io/jupyterlab-proxy-spark-webui/"
+Documentation = "https://genarocosta.github.io/jupyterlab-proxy-spark-webui/"
+Repository = "https://github.com/genarocosta/jupyterlab-proxy-spark-webui"
+Issues = "https://github.com/genarocosta/jupyterlab-proxy-spark-webui/issues"
 
 [dependency-groups]
 dev = [
