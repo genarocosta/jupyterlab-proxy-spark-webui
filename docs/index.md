@@ -1,5 +1,3 @@
-# jupyterlab-spark-webui
-
 A [JupyterLab](https://jupyterlab.readthedocs.io) extension that adds a **Spark UI**
 menu entry to the menu bar. When clicked, it verifies that Apache Spark is running on
 port 4040 and opens the Spark jobs page as an embedded JupyterLab tab — no extra browser
